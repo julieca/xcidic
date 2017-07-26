@@ -1,0 +1,49 @@
+<section>
+  <div class="page-header">
+    <h1>{{vm.article._id ? 'Edit Medical Records Patient' : 'Add Medical Records Patient'}}</h1>
+  </div>
+  <div class="pull-right">
+    <a ng-show="vm.article._id" class="btn btn-primary" ng-click="vm.remove()">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+  <div class="col-md-12">
+    <form name="vm.form.articleForm" class="form-horizontal" ng-submit="vm.save(vm.form.articleForm.$valid)" novalidate>
+      <fieldset>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="title">Patient</label>
+          <!--
+          <select name="patient"  ng-model="vm.article.patient" class="form-control"  required autofocus>
+            <option>Select Patient</option>
+            <option ng-repeat="patient in vm.patient" value="{{patient._id}}">{{patient.displayName}}</option>
+          </select>
+          -->
+          <select name="patient" id="patient" class="form-control"  required autofocus
+            ng-options="patient.displayName for patient in vm.patient track by patient._id"
+            ng-model="vm.article.patient"><option value="">Select Patient</option></select>
+
+          <div ng-messages="vm.form.articleForm.patient.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Select Patient</p>
+          </div>
+        </div>
+        <div class="form-group" show-errors>
+          <label class="control-label" for="title">Problem</label>
+          <!--
+          <input name="title" type="text" ng-model="vm.article.title" id="title" class="form-control" placeholder="Title" required autofocus>
+          <div ng-messages="vm.form.articleForm.title.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Article title is required.</p>
+          </div>
+          -->
+          <textarea name="problem" data-ng-model="vm.article.problem" id="problem" class="form-control" cols="30" rows="10" placeholder="problem"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="content">Medication</label>
+          <textarea name="medication" data-ng-model="vm.article.medication" id="medication" class="form-control" cols="30" rows="10" placeholder="medication"></textarea>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-default">{{vm.article._id ? 'Update' : 'Create'}}</button>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</section>

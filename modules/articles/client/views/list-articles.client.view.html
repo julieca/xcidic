@@ -1,0 +1,26 @@
+<section>
+  <div class="page-header">
+    <h1>Medical Records</h1>
+  </div>
+  <div data-ng-repeat="article in vm.articles">
+      
+      <h4  data-ng-bind="article.doctor.displayName"></h4>
+      <div class="list-group">
+        <a data-ng-repeat="medicalRecord in article.patient[0].medicalRecords" ng-click="show = !show" class="list-group-item">
+          <div class="list-group-item-heading">
+
+            Inserted on 
+            <span data-ng-bind="medicalRecord.created | date:'mediumDate'"></span>
+          </div>
+          <div ng-show="show" class="list-group-item-text">
+            <p data-ng-bind="medicalRecord.problem"></p>
+            <hr>
+            <p data-ng-bind="medicalRecord.medication"></p>
+          </div>
+        </a>
+      </div>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-if="articles.$resolved && !articles.length">
+    No articles yet, why don't you <a data-ui-sref="admin.articles.create">create one</a>?
+  </div>
+</section>
